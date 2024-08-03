@@ -32,8 +32,45 @@
         <div class="non-fiction"></div>
     </div>
     <dialog>
-        <button autofocus>Close</button>
-        <p>This modal dialog has a groovy backdrop!</p>
+        <div class="top">
+            Add New Book
+            <button class="close"><img src="assets/close.svg" alt=""></button>
+        </div>
+        <form action="">
+            <div class="input">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div>
+                <div class="input">
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author">
+                </div>
+                <div class="input">
+                    <label for="pages">No. of Pages</label>
+                    <input type="number" id="pages" name="pages">
+                </div>
+            </div>
+            <div class="input">
+                <label for="desc">Description</label>
+                <input type="text" id="desc" name="desc">
+            </div>
+            <div>
+                This book is:
+                <div>
+                    <input type="radio" id="fict" name="genre" value="fict">
+                    <label for="fict">Fiction</label>
+                  </div>
+                  
+                  <div>
+                    <input type="radio" id="nonfict" name="genre" value="nonfict">
+                    <label for="nonfict">Non-Fiction</label>
+                  </div>
+            </div>
+        </form>
+        <div>
+            <button class="save">Save</button>
+        </div>
     </dialog>
     <button class="new"><img src="assets/add.svg" alt=""></button>
 
