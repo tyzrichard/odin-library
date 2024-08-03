@@ -1,0 +1,139 @@
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/* and here's my own stylings */
+
+body {
+    min-height: 100vh;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #FAF9F9;
+}
+
+.header{
+    height: 12vh;
+    width: 100vw;
+    text-align: center;
+    background-color: #FFD6BA;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.books {
+    margin: 40px 6vw;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fiction,
+.non-fiction {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 225px);
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.book {
+    height: 275px;
+    background-color: #D1FAE5;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.15); 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.summary :nth-child(1) {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.summary {
+    font-size: 14px;
+}
+
+.synopsis {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: auto;
+}
+
+button {
+    border-width: 0;
+    border-radius: 100px;
+    padding: 5px 0;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.read{
+    background-color: #FEF08A;
+    flex: 1;
+}
+
+.return {
+    background-color: #FFE4E6;
+    color: #E11D48;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    font-size: 26px;
+}
