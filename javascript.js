@@ -1,4 +1,23 @@
 const myLibrary = [];
+const test = new Book('helloes!', 'richard', 3, 'this is my book', false, true);
+const test2 = new Book('helloes again!!', 'also richard', 3000, 'this book is NON-fiction. VERY boring.', true, false);
+const fiction = document.querySelector(".fiction");
+const nonfiction = document.querySelector(".non-fiction");
+const newButton = document.querySelector(".new");
+
+
+
+const dialog = document.querySelector("dialog");
+const showButton = document.querySelector("dialog + button");
+const closeButton = document.querySelector("dialog button");
+
+newButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
 
 function Book(title, author, pages, synopsis, read, fiction) {
   this.title = title;
@@ -8,11 +27,6 @@ function Book(title, author, pages, synopsis, read, fiction) {
   this.read = read;
   this.fiction = fiction;
 }
-
-const test = new Book('helloes!', 'richard', 3, 'this is my book', false, true);
-const test2 = new Book('helloes again!!', 'also richard', 3000, 'this book is NON-fiction. VERY boring.', true, false);
-const fiction = document.querySelector(".fiction")
-const nonfiction = document.querySelector(".non-fiction")
 
 function addBookToLibrary(book) {
   // Newbook div
