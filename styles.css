@@ -163,3 +163,81 @@ p {
             green);
     opacity: 0.2;
 }
+
+dialog {
+    display: flex;
+    flex-direction: column;
+    border-width: 0;
+    border-radius: 30px;
+    width: max(400px, 50%);
+    font-size: 16px;
+    gap: 15px;
+    padding: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.top {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.close {
+    background-color: white;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0);
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input>input {
+    background-color: #F5F5F5;
+    height: 35px;
+    border-radius: 10px;
+    border: rgba(0, 0, 0, 0.5) solid 1px;
+    padding: 0 10px;
+    size: 1;
+}
+
+form>:nth-child(2) {
+    display: flex;
+    gap: 20px;
+}
+
+form>:nth-child(2)>:first-child {
+    flex: 1;
+}
+
+#pages {
+    width: 100px;
+}
+
+.radio-input {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#fict, #nonfict {
+    height: 15px;
+    width: 15px;
+}
+
+.savediv {
+    display: flex;
+    justify-content: right;
+}
+
+.save {
+    border: 0;
+    background-color: #FFD6BA;
+    padding: 5px 30px;
+}

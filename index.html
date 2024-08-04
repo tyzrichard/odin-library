@@ -34,6 +34,7 @@
     <dialog>
         <div class="top">
             Add New Book
+            <div></div>
             <button class="close"><img src="assets/close.svg" alt=""></button>
         </div>
         <form action="">
@@ -47,8 +48,8 @@
                     <input type="text" id="author" name="author">
                 </div>
                 <div class="input">
-                    <label for="pages">No. of Pages</label>
-                    <input type="number" id="pages" name="pages">
+                    <label for="pages">Pages</label>
+                    <input type="number" id="pages" name="pages" size="1">
                 </div>
             </div>
             <div class="input">
@@ -57,18 +58,18 @@
             </div>
             <div>
                 This book is:
-                <div>
+                <div class="radio-input">
                     <input type="radio" id="fict" name="genre" value="fict">
                     <label for="fict">Fiction</label>
-                  </div>
-                  
-                  <div>
+                </div>
+
+                <div class="radio-input">
                     <input type="radio" id="nonfict" name="genre" value="nonfict">
                     <label for="nonfict">Non-Fiction</label>
-                  </div>
+                </div>
             </div>
         </form>
-        <div>
+        <div class="savediv">
             <button class="save">Save</button>
         </div>
     </dialog>
