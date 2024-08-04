@@ -171,5 +171,3 @@ function updateBookIndices() {
 
 
 addBookToLibrary(lotr);
-addBookToLibrary(lotr);
-addBookToLibrary(lotr);
