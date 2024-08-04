@@ -84,14 +84,21 @@ body {
 }
 
 .book {
-    height: 275px;
-    background-color: #D1FAE5;
+    height: 285px;
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.fiction > .book {
+    background-color: #D1FAE5;
+}
+
+.non-fiction > .book {
+    background-color: #E0E7FF;
 }
 
 .summary :nth-child(1) {
