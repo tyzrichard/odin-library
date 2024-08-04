@@ -1,4 +1,4 @@
-const myLibrary = [];
+const fictLibrary = [], nonFictLibrary = [];
 const fiction = document.querySelector(".fiction");
 const nonfiction = document.querySelector(".non-fiction");
 const newButton = document.querySelector(".new");
@@ -47,9 +47,19 @@ function Book(info) {
 }
 
 function addBookToLibrary(book) {
-  // Newbook div
-  const newBookDiv = document.createElement("div");
-  newBookDiv.classList.add("book");
+  // Determine the index to assign
+  let index;
+  if (book.fiction) {
+    fictLibrary.push(book);
+    index = fictLibrary.length - 1;
+  } else {
+    nonFictLibrary.push(book);
+    index = nonFictLibrary.length - 1;
+  }
+
+  const newBook = document.createElement("div");
+  newBook.classList.add("book");
+  newBook.setAttribute('data-index', index);
 
   // Summary div
   const summary = document.createElement("div");
@@ -63,13 +73,13 @@ function addBookToLibrary(book) {
   const pages = document.createElement("div");
   pages.textContent = `${book.pages} Pages`;
   summary.appendChild(pages);
-  newBookDiv.appendChild(summary);
+  newBook.appendChild(summary);
 
   // Synopsis div
   const synopsis = document.createElement("div");
   synopsis.classList.add("synopsis");
   synopsis.textContent = `${book.synopsis}`;
-  newBookDiv.appendChild(synopsis);
+  newBook.appendChild(synopsis);
 
   // Buttons div
   const buttons = document.createElement("div");
@@ -79,32 +89,87 @@ function addBookToLibrary(book) {
   read.textContent = book.read ? "Finished" : "In Progress";
   read.addEventListener("click", () => {
     book.changeRead();
-    if (book.read) {
-      read.textContent = "Finished";
-      read.style.backgroundColor = '#99F6E4';
-    } else {
-      read.textContent = "In Progress";
-      read.style.backgroundColor = '#FEF08A';
-    }
+    read.textContent = book.read ? "Finished" : "In Progress";
+    read.style.backgroundColor = book.read ? '#99F6E4' : '#FEF08A';
   });
   buttons.appendChild(read);
+  
   const rtn = document.createElement("button");
   rtn.classList.add("return");
   const rtnIcon = document.createElement("img");
   rtnIcon.src = "assets/book.svg";
   rtn.appendChild(rtnIcon);
+  // Pass the current index and fiction status
+  rtn.addEventListener("click", () => {
+    removeBook(parseInt(newBook.getAttribute('data-index')), book.fiction);
+  });
   buttons.appendChild(rtn);
-  newBookDiv.appendChild(buttons);
+  newBook.appendChild(buttons);
 
-  // Append everything to the library bit
+  // Append to the DOM
   if (book.fiction) {
-    fiction.appendChild(newBookDiv);
+    fiction.appendChild(newBook);
   } else {
-    nonfiction.appendChild(newBookDiv);
+    nonfiction.appendChild(newBook);
   }
 
-  // Add book to myLibrary array
-  myLibrary.push(book);
+  // Update indices
+  updateBookIndices();
 }
 
+function removeBook(index, isFiction) {
+  if (isFiction) {
+    // Remove from array
+    fictLibrary.splice(index, 1);
+
+    // Remove from DOM
+    const fictionBooks = document.querySelectorAll(".fiction .book");
+    fictionBooks.forEach(book => {
+      if (parseInt(book.getAttribute('data-index')) === index) {
+        book.remove();
+      }
+    });
+  } else {
+    // Remove from array
+    nonFictLibrary.splice(index, 1);
+
+    // Remove from DOM
+    const nonFictionBooks = document.querySelectorAll(".non-fiction .book");
+    nonFictionBooks.forEach(book => {
+      if (parseInt(book.getAttribute('data-index')) === index) {
+        book.remove();
+      }
+    });
+  }
+
+  // Update indices
+  updateBookIndices();
+}
+
+function updateBookIndices() {
+  // Update indices for fiction books
+  const fictionBooks = document.querySelectorAll(".fiction .book");
+  fictionBooks.forEach((book, newIndex) => {
+    book.setAttribute('data-index', newIndex);
+  });
+
+  // Update indices for non-fiction books
+  const nonFictionBooks = document.querySelectorAll(".non-fiction .book");
+  nonFictionBooks.forEach((book, newIndex) => {
+    book.setAttribute('data-index', newIndex);
+  });
+
+  // Update index properties in book objects
+  fictLibrary.forEach((book, index) => {
+    book.index = index;
+  });
+
+  nonFictLibrary.forEach((book, index) => {
+    book.index = index;
+  });
+}
+
+
+addBookToLibrary(lotr);
+addBookToLibrary(lotr);
 addBookToLibrary(lotr);
