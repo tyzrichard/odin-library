@@ -3,11 +3,10 @@ const fiction = document.querySelector(".fiction");
 const nonfiction = document.querySelector(".non-fiction");
 const newButton = document.querySelector(".new");
 
-
+const lotr = new Book(['Lord of the Rings', 'J.R.R Tolkien', 200, 'This book follows the story of Frodo who goes on an impossible quest to destroy a very powerful and magical ring.', 'fict']);
 
 const dialog = document.querySelector("dialog");
 const form = document.querySelector("form");
-const showButton = document.querySelector("dialog + button");
 const closeButton = document.querySelector("dialog button");
 
 newButton.addEventListener("click", () => {
@@ -22,18 +21,14 @@ closeButton.addEventListener("click", () => {
 function handleFormSubmit(event) {
   event.preventDefault(); // Prevent the default form submission behavior
 
-  // Perform form submission tasks here, e.g., sending data to a server
-  var formData = new FormData(form);
-
   // Retrieve form data
-  var formValues = [];
+  const formData = new FormData(form);
+  const formValues = [];
   formData.forEach((value) => {
     formValues.push(value);
   });
-  console.log(formValues);
 
-  // Log the form values (or process them as needed)
-  const newBook = new Book(formValues)
+  const newBook = new Book(formValues);
   addBookToLibrary(newBook);
   dialog.close();
 }
@@ -44,17 +39,19 @@ function Book(info) {
   this.pages = info[2];
   this.synopsis = info[3];
   this.read = false;
-  if (info[5] == 'fict') {
-    this.fiction = true;
-  } else this.fiction = false;
+  this.fiction = info[4] === 'fict';
+  
+  this.changeRead = function() {
+    this.read = !this.read;
+  }
 }
 
 function addBookToLibrary(book) {
   // Newbook div
-  const newBook = document.createElement("div");
-  newBook.classList.add("book");
+  const newBookDiv = document.createElement("div");
+  newBookDiv.classList.add("book");
 
-  //Summary div
+  // Summary div
   const summary = document.createElement("div");
   summary.classList.add("summary");
   const title = document.createElement("div");
@@ -66,24 +63,30 @@ function addBookToLibrary(book) {
   const pages = document.createElement("div");
   pages.textContent = `${book.pages} Pages`;
   summary.appendChild(pages);
-  newBook.appendChild(summary);
+  newBookDiv.appendChild(summary);
 
-  //Synopsis div
+  // Synopsis div
   const synopsis = document.createElement("div");
   synopsis.classList.add("synopsis");
   synopsis.textContent = `${book.synopsis}`;
-  newBook.appendChild(synopsis);
+  newBookDiv.appendChild(synopsis);
 
-  //Buttons div
+  // Buttons div
   const buttons = document.createElement("div");
   buttons.classList.add("buttons");
   const read = document.createElement("button");
   read.classList.add("read");
-  if (book.read) {
-    read.textContent = "Finished";
-  } else {
-    read.textContent = "In Progress";
-  }
+  read.textContent = book.read ? "Finished" : "In Progress";
+  read.addEventListener("click", () => {
+    book.changeRead();
+    if (book.read) {
+      read.textContent = "Finished";
+      read.style.backgroundColor = '#99F6E4';
+    } else {
+      read.textContent = "In Progress";
+      read.style.backgroundColor = '#FEF08A';
+    }
+  });
   buttons.appendChild(read);
   const rtn = document.createElement("button");
   rtn.classList.add("return");
@@ -91,13 +94,17 @@ function addBookToLibrary(book) {
   rtnIcon.src = "assets/book.svg";
   rtn.appendChild(rtnIcon);
   buttons.appendChild(rtn);
-  newBook.appendChild(buttons);
+  newBookDiv.appendChild(buttons);
 
-  //Append everything to the library bit
+  // Append everything to the library bit
   if (book.fiction) {
-    fiction.appendChild(newBook);
+    fiction.appendChild(newBookDiv);
   } else {
-    nonfiction.appendChild(newBook);
+    nonfiction.appendChild(newBookDiv);
   }
 
+  // Add book to myLibrary array
+  myLibrary.push(book);
 }
+
+addBookToLibrary(lotr);
