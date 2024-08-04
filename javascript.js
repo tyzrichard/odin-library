@@ -8,11 +8,13 @@ const newButton = document.querySelector(".new");
 
 
 const dialog = document.querySelector("dialog");
+const form = document.querySelector("form");
 const showButton = document.querySelector("dialog + button");
 const closeButton = document.querySelector("dialog button");
 
 newButton.addEventListener("click", () => {
   dialog.showModal();
+  form.reset();
 });
 
 closeButton.addEventListener("click", () => {

@@ -165,7 +165,6 @@ p {
 }
 
 dialog {
-    display: flex;
     flex-direction: column;
     border-width: 0;
     border-radius: 30px;
@@ -173,6 +172,12 @@ dialog {
     font-size: 16px;
     gap: 15px;
     padding: 30px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
 }
 
 form {
@@ -226,7 +231,8 @@ form>:nth-child(2)>:first-child {
     gap: 6px;
 }
 
-#fict, #nonfict {
+#fict,
+#nonfict {
     height: 15px;
     width: 15px;
 }
