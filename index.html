@@ -20,8 +20,8 @@
                     <div>By J.R.R. Tolkien</div>
                     <div>200 Pages</div>
                 </div>
-                <div class="synopsis">This book follows the story of Frodo who goes on an impossible quest to destroy a
-                    very powerful and magical ring.</div>
+                <div class="synopsis">This book follows the story of Frodo who goes on an impossible quest to destroy a
+                    very powerful and magical ring.</div>
                 <div class="buttons">
                     <button class="read">In Progress</button>
                     <button class="return"><img src="assets/book.svg" alt=""></button>
@@ -37,41 +37,41 @@
             <div></div>
             <button class="close"><img src="assets/close.svg" alt=""></button>
         </div>
-        <form action="">
+        <form onsubmit="handleFormSubmit(event)">
             <div class="input">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title">
+                <input type="text" id="title" name="title" maxlength="15" placeholder="Max 15 Characters" required>
             </div>
             <div>
                 <div class="input">
                     <label for="author">Author</label>
-                    <input type="text" id="author" name="author">
+                    <input type="text" id="author" name="author" placeholder="Max 20 Characters" maxlength="20" required>
                 </div>
                 <div class="input">
                     <label for="pages">Pages</label>
-                    <input type="number" id="pages" name="pages" size="1">
+                    <input type="number" id="pages" name="pages" required>
                 </div>
             </div>
             <div class="input">
                 <label for="desc">Description</label>
-                <input type="text" id="desc" name="desc">
+                <input type="text" id="desc" name="synopsis" placeholder="Max 125 Characters" maxlength="125" required>
             </div>
             <div>
                 This book is:
                 <div class="radio-input">
-                    <input type="radio" id="fict" name="genre" value="fict">
+                    <input type="radio" id="fict" name="fiction" value="fict">
                     <label for="fict">Fiction</label>
                 </div>
 
                 <div class="radio-input">
-                    <input type="radio" id="nonfict" name="genre" value="nonfict">
+                    <input type="radio" id="nonfict" name="fiction" value="nonfict">
                     <label for="nonfict">Non-Fiction</label>
                 </div>
             </div>
+            <div class="savediv">
+                <button class="save" type="submit">Save</button>
+            </div>
         </form>
-        <div class="savediv">
-            <button class="save">Save</button>
-        </div>
     </dialog>
     <button class="new"><img src="assets/add.svg" alt=""></button>
 

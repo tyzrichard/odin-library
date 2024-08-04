@@ -1,6 +1,4 @@
 const myLibrary = [];
-const test = new Book('helloes!', 'richard', 3, 'this is my book', false, true);
-const test2 = new Book('helloes again!!', 'also richard', 3000, 'this book is NON-fiction. VERY boring.', true, false);
 const fiction = document.querySelector(".fiction");
 const nonfiction = document.querySelector(".non-fiction");
 const newButton = document.querySelector(".new");
@@ -21,13 +19,34 @@ closeButton.addEventListener("click", () => {
   dialog.close();
 });
 
-function Book(title, author, pages, synopsis, read, fiction) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.synopsis = synopsis;
-  this.read = read;
-  this.fiction = fiction;
+function handleFormSubmit(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+
+  // Perform form submission tasks here, e.g., sending data to a server
+  var formData = new FormData(form);
+
+  // Retrieve form data
+  var formValues = [];
+  formData.forEach((value) => {
+    formValues.push(value);
+  });
+  console.log(formValues);
+
+  // Log the form values (or process them as needed)
+  const newBook = new Book(formValues)
+  addBookToLibrary(newBook);
+  dialog.close();
+}
+
+function Book(info) {
+  this.title = info[0];
+  this.author = info[1];
+  this.pages = info[2];
+  this.synopsis = info[3];
+  this.read = false;
+  if (info[5] == 'fict') {
+    this.fiction = true;
+  } else this.fiction = false;
 }
 
 function addBookToLibrary(book) {
@@ -42,7 +61,7 @@ function addBookToLibrary(book) {
   title.textContent = `${book.title}`;
   summary.appendChild(title);
   const author = document.createElement("div");
-  author.textContent = `by ${book.author}`;
+  author.textContent = `By ${book.author}`;
   summary.appendChild(author);
   const pages = document.createElement("div");
   pages.textContent = `${book.pages} Pages`;
@@ -80,8 +99,5 @@ function addBookToLibrary(book) {
   } else {
     nonfiction.appendChild(newBook);
   }
-  
-}
 
-addBookToLibrary(test);
-addBookToLibrary(test2);
+}
