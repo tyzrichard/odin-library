@@ -1,9 +1,88 @@
-const fictLibrary = [], nonFictLibrary = [];
+const fictLibrary = [],
+  nonFictLibrary = [];
 const fiction = document.querySelector(".fiction");
 const nonfiction = document.querySelector(".non-fiction");
 const newButton = document.querySelector(".new");
 
-const lotr = new Book(['Lord of the Rings', 'J.R.R Tolkien', 200, 'This book follows the story of Frodo who goes on an impossible quest to destroy a very powerful and magical ring.', 'fict']);
+// Lots of form items + their error spans + js
+const title_input = document.querySelector("#title");
+const title_error = document.querySelector("#title + span.error");
+const author_input = document.querySelector("#author");
+const author_error = document.querySelector("#author + span.error");
+const pages_input = document.querySelector("#pages");
+const pages_error = document.querySelector("#pages + span.error");
+const desc_input = document.querySelector("#desc");
+const desc_error = document.querySelector("#desc + span.error");
+const fiction_input = document.querySelector("#fict");
+const nonfiction_input = document.querySelector("#nonfict");
+const fiction_error = document.querySelector("div.radio-input + span.error");
+
+title_input.addEventListener("input", (event) => {
+  if (title_input.validity.valid) {
+    title_error.textContent = "";
+    title_error.className = "error";
+  } else {
+    showError(title_error);
+  }
+});
+
+author_input.addEventListener("input", (event) => {
+  if (author_input.validity.valid) {
+    author_error.textContent = "";
+    author_error.className = "error";
+  } else {
+    showError(author_error);
+  }
+});
+
+pages_input.addEventListener("input", (event) => {
+  if (pages_input.value >= 1) {
+    pages_error.textContent = "";
+    pages_error.className = "error";
+  } else {
+    showError(pages_error);
+  }
+});
+
+desc_input.addEventListener("input", (event) => {
+  if (desc_input.validity.valid) {
+    desc_error.textContent = "";
+    desc_error.className = "error";
+  } else {
+    showError(desc_error);
+  }
+});
+
+function showError(errorDiv) {
+  if (errorDiv == title_error) {
+    if (title_input.validity.valueMissing) {
+      title_error.textContent = "You need to enter a title.";
+    }
+  } else if (errorDiv == author_error) {
+    if (author_input.validity.valueMissing) {
+      author_error.textContent = "You need to enter the author's name.";
+    }
+  } else if (errorDiv == pages_error) {
+    if (pages_input.validity.valueMissing) {
+      pages_error.textContent = "Missing value!";
+    } else if (pages_input.value < 1) {
+      pages_error.textContent = "Invalid value!";
+    }
+  } else if ((errorDiv = desc_error)) {
+    if (desc_input.validity.valueMissing) {
+      desc_error.textContent = "You need to enter a description.";
+    }
+  }
+  errorDiv.className = "error active";
+}
+
+const lotr = new Book([
+  "Lord of the Rings",
+  "J.R.R Tolkien",
+  200,
+  "This book follows the story of Frodo who goes on an impossible quest to destroy a very powerful and magical ring.",
+  "fict",
+]);
 
 const dialog = document.querySelector("dialog");
 const form = document.querySelector("form");
@@ -21,16 +100,28 @@ closeButton.addEventListener("click", () => {
 function handleFormSubmit(event) {
   event.preventDefault(); // Prevent the default form submission behavior
 
-  // Retrieve form data
-  const formData = new FormData(form);
-  const formValues = [];
-  formData.forEach((value) => {
-    formValues.push(value);
-  });
+  if (!title_input.validity.valid) {
+    showError(title_error);
+  } else if (!author_input.validity.valid) {
+    showError(author_error);
+  } else if (!pages_input.validity.valid || pages_input.value < 1) {
+    showError(pages_error);
+  } else if (!desc_input.validity.valid) {
+    showError(desc_error);
+  } else if (!fiction_input.checked && !nonfiction_input.checked) {
+    fiction_error.textContent = "Fill in the book's type!";
+  } else {
+    // Retrieve form data
+    const formData = new FormData(form);
+    const formValues = [];
+    formData.forEach((value) => {
+      formValues.push(value);
+    });
 
-  const newBook = new Book(formValues);
-  addBookToLibrary(newBook);
-  dialog.close();
+    const newBook = new Book(formValues);
+    addBookToLibrary(newBook);
+    dialog.close();
+  }
 }
 
 function Book(info) {
@@ -39,11 +130,11 @@ function Book(info) {
   this.pages = info[2];
   this.synopsis = info[3];
   this.read = false;
-  this.fiction = info[4] === 'fict';
-  
-  this.changeRead = function() {
+  this.fiction = info[4] === "fict";
+
+  this.changeRead = function () {
     this.read = !this.read;
-  }
+  };
 }
 
 function addBookToLibrary(book) {
@@ -59,7 +150,7 @@ function addBookToLibrary(book) {
 
   const newBook = document.createElement("div");
   newBook.classList.add("book");
-  newBook.setAttribute('data-index', index);
+  newBook.setAttribute("data-index", index);
 
   // Summary div
   const summary = document.createElement("div");
@@ -90,10 +181,10 @@ function addBookToLibrary(book) {
   read.addEventListener("click", () => {
     book.changeRead();
     read.textContent = book.read ? "Finished" : "In Progress";
-    read.style.backgroundColor = book.read ? '#99F6E4' : '#FEF08A';
+    read.style.backgroundColor = book.read ? "#99F6E4" : "#FEF08A";
   });
   buttons.appendChild(read);
-  
+
   const rtn = document.createElement("button");
   rtn.classList.add("return");
   const rtnIcon = document.createElement("img");
@@ -101,7 +192,7 @@ function addBookToLibrary(book) {
   rtn.appendChild(rtnIcon);
   // Pass the current index and fiction status
   rtn.addEventListener("click", () => {
-    removeBook(parseInt(newBook.getAttribute('data-index')), book.fiction);
+    removeBook(parseInt(newBook.getAttribute("data-index")), book.fiction);
   });
   buttons.appendChild(rtn);
   newBook.appendChild(buttons);
@@ -124,8 +215,8 @@ function removeBook(index, isFiction) {
 
     // Remove from DOM
     const fictionBooks = document.querySelectorAll(".fiction .book");
-    fictionBooks.forEach(book => {
-      if (parseInt(book.getAttribute('data-index')) === index) {
+    fictionBooks.forEach((book) => {
+      if (parseInt(book.getAttribute("data-index")) === index) {
         book.remove();
       }
     });
@@ -135,8 +226,8 @@ function removeBook(index, isFiction) {
 
     // Remove from DOM
     const nonFictionBooks = document.querySelectorAll(".non-fiction .book");
-    nonFictionBooks.forEach(book => {
-      if (parseInt(book.getAttribute('data-index')) === index) {
+    nonFictionBooks.forEach((book) => {
+      if (parseInt(book.getAttribute("data-index")) === index) {
         book.remove();
       }
     });
@@ -150,13 +241,13 @@ function updateBookIndices() {
   // Update indices for fiction books
   const fictionBooks = document.querySelectorAll(".fiction .book");
   fictionBooks.forEach((book, newIndex) => {
-    book.setAttribute('data-index', newIndex);
+    book.setAttribute("data-index", newIndex);
   });
 
   // Update indices for non-fiction books
   const nonFictionBooks = document.querySelectorAll(".non-fiction .book");
   nonFictionBooks.forEach((book, newIndex) => {
-    book.setAttribute('data-index', newIndex);
+    book.setAttribute("data-index", newIndex);
   });
 
   // Update index properties in book objects
@@ -168,6 +259,5 @@ function updateBookIndices() {
     book.index = index;
   });
 }
-
 
 addBookToLibrary(lotr);

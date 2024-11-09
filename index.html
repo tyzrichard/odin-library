@@ -23,24 +23,28 @@
             <div></div>
             <button class="close"><img src="assets/close.svg" alt=""></button>
         </div>
-        <form onsubmit="handleFormSubmit(event)">
+        <form novalidate onsubmit="handleFormSubmit(event)">
             <div class="input">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title" maxlength="15" placeholder="Max 15 Characters" required>
+                <input type="text" id="title" name="title" maxlength="25" placeholder="Max 25 Characters" required>
+                <span class="error" aria-live="polite"></span>
             </div>
             <div>
                 <div class="input">
                     <label for="author">Author</label>
                     <input type="text" id="author" name="author" placeholder="Max 20 Characters" maxlength="20" required>
+                    <span class="error" aria-live="polite"></span>
                 </div>
                 <div class="input">
                     <label for="pages">Pages</label>
                     <input type="number" id="pages" name="pages" required>
+                    <span class="error" aria-live="polite"></span>
                 </div>
             </div>
             <div class="input">
                 <label for="desc">Description</label>
                 <input type="text" id="desc" name="synopsis" placeholder="Max 125 Characters" maxlength="125" required>
+                <span class="error" aria-live="polite"></span>
             </div>
             <div>
                 This book is:
@@ -53,6 +57,7 @@
                     <input type="radio" id="nonfict" name="fiction" value="nonfict">
                     <label for="nonfict">Non-Fiction</label>
                 </div>
+                <span class="error" aria-live="polite"></span>
             </div>
             <div class="savediv">
                 <button class="save" type="submit">Save</button>

@@ -13,3 +13,5 @@ The rest? Easy.
 
 ### Future Updates
 Hm. Seems like Odin wants me to return back to this project at a later date. We'll see what happens.
+
+[Nov 2024] UPDATE: Yep, returned to add some extra fancy form validation using the JS Constraint Validation API. I left the basic validation there though, but its nullified by the novalidate bit. Just thought I would keep it there for fun.
