@@ -18,6 +18,7 @@ const nonfiction_input = document.querySelector("#nonfict");
 const fiction_error = document.querySelector("div.radio-input + span.error");
 
 title_input.addEventListener("input", (event) => {
+  title_input.classList.add("touched");
   if (title_input.validity.valid) {
     title_error.textContent = "";
     title_error.className = "error";
@@ -27,6 +28,7 @@ title_input.addEventListener("input", (event) => {
 });
 
 author_input.addEventListener("input", (event) => {
+  author_input.classList.add("touched");
   if (author_input.validity.valid) {
     author_error.textContent = "";
     author_error.className = "error";
@@ -36,6 +38,7 @@ author_input.addEventListener("input", (event) => {
 });
 
 pages_input.addEventListener("input", (event) => {
+  pages_input.classList.add("touched");
   if (pages_input.value >= 1) {
     pages_error.textContent = "";
     pages_error.className = "error";
@@ -45,6 +48,7 @@ pages_input.addEventListener("input", (event) => {
 });
 
 desc_input.addEventListener("input", (event) => {
+  desc_input.classList.add("touched");
   if (desc_input.validity.valid) {
     desc_error.textContent = "";
     desc_error.className = "error";
@@ -94,6 +98,11 @@ newButton.addEventListener("click", () => {
 });
 
 closeButton.addEventListener("click", () => {
+  fiction_error.textContent = "";
+  title_input.classList.remove("touched");
+  author_input.classList.remove("touched");
+  pages_input.classList.remove("touched");
+  desc_input.classList.remove("touched");
   dialog.close();
 });
 
@@ -111,6 +120,11 @@ function handleFormSubmit(event) {
   } else if (!fiction_input.checked && !nonfiction_input.checked) {
     fiction_error.textContent = "Fill in the book's type!";
   } else {
+    fiction_error.textContent = "";
+    title_input.classList.remove("touched");
+    author_input.classList.remove("touched");
+    pages_input.classList.remove("touched");
+    desc_input.classList.remove("touched");
     // Retrieve form data
     const formData = new FormData(form);
     const formValues = [];
